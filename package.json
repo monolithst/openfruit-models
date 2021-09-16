@@ -4,7 +4,8 @@
   "description": "The Open Fruit platform's models.",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --all mocha --recursive ./test/**/*.test.js"
+    "test": "mocha --recursive ./test/**/*.test.js",
+    "coverage": "nyc --all --reporter=lcov npm test"
   },
   "nyc": {
     "all": true
