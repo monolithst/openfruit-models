@@ -1,5 +1,5 @@
 {
-  "name": "openfruit",
+  "name": "openfruit-models",
   "version": "1.0.0",
   "description": "The Open Fruit platform's models.",
   "main": "index.js",
