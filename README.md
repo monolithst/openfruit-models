@@ -1,5 +1,5 @@
 # OpenFruit Models
-![Tests](https://github.com/monolithst/openfruit-models/actions/workflows/Build/Test/badge.svg)
+![Tests](https://github.com/monolithst/openfruit-models/actions/workflows/test.yml/badge.svg)
 This repository contains the reusable code that handles models within openfruit. This code is made accessible so that client and backend code can reuse the same code for handling and manipulating models.
 
 ## Design Philosophy
