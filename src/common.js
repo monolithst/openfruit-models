@@ -1,4 +1,4 @@
-const { createUuid } = require('../utils')
+const { createUuid } = require('./utils')
 
 const loweredTitleCase = string => {
   return `${string.slice(0,1).toLowerCase()}${string.slice(1)}`
@@ -126,7 +126,7 @@ const lazyProperty2 = (key, lazy, selector=null) => {
 const lazyProperty3 = (object, key, initializer) => {
   Object.defineProperty(object, key, {
     get: () => {
-      const v = initializer.call(
+      //const v = initializer.call(
     }
   })
 }
@@ -134,11 +134,8 @@ const lazyProperty3 = (object, key, initializer) => {
 const uniqueId = (
   id=null
 ) => {
-  return id
-    ? property({id})
-    : property('id', createUuid())
+  return property('id', id || createUuid())
 }
-
 
 const dateProperty = (date, key) => {
   return {

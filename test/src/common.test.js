@@ -1,5 +1,5 @@
 const assert = require('chai').assert
-const { property, named, typed, smartObject } = require('../../../src/lib/models/common')
+const { property, named, typed, smartObject } = require('../../src/common')
 
 
 describe('/src/lib/models/common.js', () => {
