@@ -1,8 +1,6 @@
 module.exports = {
-  user: require('./user'),
-  common: require('./common'),
+  users: require('./users'),
   geo: require('./geo'),
   taxonomy: require('./taxonomy'),
   metrics: require('./metrics'),
-  inventory: require('./inventory'),
 }

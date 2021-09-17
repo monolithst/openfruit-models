@@ -4,11 +4,9 @@
   "description": "The Open Fruit platform's models.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive ./test/**/*.test.js",
+    "test": "nyc --all mocha --recursive ./test/**/*.test.js",
+    "feature-tests": "./node_modules/@cucumber/cucumber/bin/cucumber-js",
     "coverage": "nyc --all --reporter=lcov npm test"
-  },
-  "nyc": {
-    "all": true
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
@@ -20,9 +18,22 @@
     "mocha": "^8.2.1",
     "nyc": "^15.1.0"
   },
+  "nyc": {
+    "all": true,
+    "exclude": [
+      "features/stepDefinitions/*",
+      "coverage/*",
+      "test/*",
+      "index.js",
+      "src/index.js"
+    ]
+  },
   "author": "Mike Cornwell",
-  "license": "ISC",
+  "license": "GPLv3",
   "dependencies": {
-    "lazy-property": "^1.0.0"
+    "functional-models": "^1.0.9",
+    "get-random-values": "^1.2.2",
+    "lazy-property": "^1.0.0",
+    "lodash": "^4.17.21"
   }
 }
