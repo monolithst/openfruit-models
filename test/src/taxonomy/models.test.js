@@ -40,8 +40,8 @@ describe('/src/taxonomy/models.js', () => {
         assert.equal(actual, expected)
       })
     })
-    it('should produce an expected genus when toJson is called', async () => {
-      const actual = await models().genus(TEST_GENUS_1).functions.toJson()
+    it('should produce an expected genus when toObj is called', async () => {
+      const actual = await models().genus(TEST_GENUS_1).functions.toObj()
       const expected = {
         id: 'genus-id',
         type: 'genus',
@@ -64,10 +64,10 @@ describe('/src/taxonomy/models.js', () => {
         assert.equal(actual, expected)
       })
     })
-    it('should produce an expected species when toJson is called', async () => {
+    it('should produce an expected species when toObj is called', async () => {
       const genus = models().genus(TEST_GENUS_1)
       const species = models().species({...TEST_SPECIES_1, genus })
-      const actual = await species.functions.toJson()
+      const actual = await species.functions.toObj()
       const expected = {
         id: 'species-id',
         type: 'species',
@@ -97,11 +97,11 @@ describe('/src/taxonomy/models.js', () => {
         assert.equal(actual, expected)
       })
     })
-    it('should produce an expected cultivar when toJson is called', async () => {
+    it('should produce an expected cultivar when toObj is called', async () => {
       const genus = models().genus(TEST_GENUS_1)
       const species = models().species({...TEST_SPECIES_1, genus })
       const cultivar = models().cultivar({...TEST_CULTIVAR_1, species, genus })
-      const actual = await cultivar.functions.toJson()
+      const actual = await cultivar.functions.toObj()
       const expected = {
         id: 'cultivar-id',
         type: 'cultivar',

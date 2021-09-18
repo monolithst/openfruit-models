@@ -22,6 +22,12 @@ describe('/src/users/models.js', () => {
             models().user()
           })
         })
+        it('should return user when instance.meta.modelName is called', () => {
+          const instance = models().user({})
+          const actual = instance.meta.modelName
+          const expected = 'user'
+          assert.deepEqual(actual, expected)
+        })
       })
     })
   })
