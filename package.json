@@ -31,7 +31,7 @@
   "author": "Mike Cornwell",
   "license": "GPLv3",
   "dependencies": {
-    "functional-models": "^1.0.9",
+    "functional-models": "^1.0.10",
     "get-random-values": "^1.2.2",
     "lazy-property": "^1.0.0",
     "lodash": "^4.17.21"
