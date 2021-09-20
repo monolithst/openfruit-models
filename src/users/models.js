@@ -2,19 +2,16 @@ const {
   textField,
   emailField,
 } = require('functional-models')
-const {
-  createStandardModel
-} = require('../commonModels')
 const { nameField } = require('./fields')
 
 
-const models = () => {
-  const user = createStandardModel('user', {
+const models = ({createModel}) => {
+  const user = createModel('user', {
     firstName: nameField({required: true}),
     lastName: nameField({required: true}),
     email: emailField({required: true}),
   })
-  const userApiKey = createStandardModel('userApiKey', {
+  const userApiKey = createModel('userApiKey', {
     apiKey: textField({ required: true})
   })
   return {

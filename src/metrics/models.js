@@ -2,10 +2,9 @@ const {
   referenceField,
   objectField,
 } = require('functional-models')
-const { createStandardModel } = require('../commonModels')
 
-const models = ({userFetcher={}}={}) => {
-  const userApiUsage = createStandardModel({
+const models = ({createModel, userFetcher={}}={}) => {
+  const userApiUsage = createModel({
     user: referenceField({ fetcher: userFetcher, required: true}),
     usageByYearAndMonth: objectField({ required: true, isObject: true, defaultValue: {} })
   })

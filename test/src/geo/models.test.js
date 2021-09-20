@@ -1,12 +1,13 @@
 const assert = require('chai').assert
 const models = require('../../../src/geo/models')
+const { createStandardModel } = require('../../../src/commonModels')
 
 describe('/src/geo/models.js', () => {
   describe('#models()', () => {
     describe('#models()', () => {
       it('should create without exception if no configurations are passed', () => {
         assert.doesNotThrow(() => {
-          models()
+          models({})
         })
       })
       describe('#continent()', () => {

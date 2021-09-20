@@ -4,7 +4,6 @@ const {
   referenceField,
   validation,
 } = require('functional-models')
-const { createStandardModel } = require('../commonModels')
 const {
   chromosomeCountField,
   harvestMonthField,
@@ -19,14 +18,14 @@ const {
 } = require('./constants')
 
 
-const models = ({genusFetcher=undefined, speciesFetcher=undefined, cultivarFetcher=undefined}={}) => {
+const models = ({ createModel, genusFetcher=undefined, speciesFetcher=undefined, cultivarFetcher=undefined}={}) => {
 
-  const genus = createStandardModel('genus', {
+  const genus = createModel('genus', {
     name: textField({ required: true}),
     latinName: latinNameField({ required: true })
   })
 
-  const species = createStandardModel('species', {
+  const species = createModel('species', {
     name: textField({ required: true}),
     genus: referenceField({ fetcher: genusFetcher, required: true }),
     latinName: latinNameField({ required: true }),
@@ -37,7 +36,7 @@ const models = ({genusFetcher=undefined, speciesFetcher=undefined, cultivarFetch
     fruitUse: fruitUseField(),
   })
 
-  const cultivar = createStandardModel('cultivar', {
+  const cultivar = createModel('cultivar', {
     name: textField({ required: true}),
     genus: referenceField({ fetcher: genusFetcher, required: true }),
     species: referenceField({ fetcher: speciesFetcher, required: true }),
