@@ -1,24 +1,24 @@
 const {
-  textField,
-  emailField,
+  TextProperty,
+  EmailProperty,
+  ReferenceProperty,
 } = require('functional-models')
-const { nameField } = require('./fields')
+const { NameProperty } = require('./properties')
 
-
-const models = ({createModel}) => {
-  const user = createModel('user', {
-    firstName: nameField({required: true}),
-    lastName: nameField({required: true}),
-    email: emailField({required: true}),
+const models = ({ OpenFruitModel, userFetcher = undefined }) => {
+  const User = OpenFruitModel('user', {
+    firstName: NameProperty({ required: true }),
+    lastName: NameProperty({ required: true }),
+    email: EmailProperty({ required: true }),
   })
-  const userApiKey = createModel('userApiKey', {
-    apiKey: textField({ required: true})
+  const UserApiKey = OpenFruitModel('userApiKey', {
+    user: ReferenceProperty(User, { fetcher: userFetcher, required: true }),
+    apiKey: TextProperty({ required: true }),
   })
   return {
-    user,
-    userApiKey,
+    User,
+    UserApiKey,
   }
 }
-
 
 module.exports = models

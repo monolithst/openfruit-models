@@ -1,4 +1,4 @@
 module.exports = {
   models: require('./models'),
-  fields: require('./fields'),
+  properties: require('./properties'),
 }

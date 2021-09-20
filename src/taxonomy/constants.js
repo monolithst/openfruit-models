@@ -1,4 +1,3 @@
-
 const CHROMOSOME_COUNT = {
   2: 'Diploid x2',
   3: 'Triploid x3',
@@ -45,7 +44,6 @@ const FRUIT_USES = {
 
 const MAX_BRIEF_DESCRIPTION = 300
 const MAX_HISTORY = 5000
-
 
 module.exports = {
   RIPENING_MONTHS,

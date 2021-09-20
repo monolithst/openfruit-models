@@ -1,16 +1,17 @@
-const {
-  referenceField,
-  objectField,
-} = require('functional-models')
+const { ReferenceProperty, ObjectProperty } = require('functional-models')
 
-const models = ({createModel, userFetcher={}}={}) => {
-  const userApiUsage = createModel({
-    user: referenceField({ fetcher: userFetcher, required: true}),
-    usageByYearAndMonth: objectField({ required: true, isObject: true, defaultValue: {} })
+const models = ({ OpenFruitModel, User, userFetcher = {} }) => {
+  const UserApiUsage = OpenFruitModel({
+    user: ReferenceProperty(User, { fetcher: userFetcher, required: true }),
+    usageByYearAndMonth: ObjectProperty({
+      required: true,
+      isObject: true,
+      defaultValue: {},
+    }),
   })
 
   return {
-    userApiUsage,
+    UserApiUsage,
   }
 }
 
