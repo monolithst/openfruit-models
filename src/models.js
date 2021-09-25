@@ -6,6 +6,9 @@ const {
 } = require('functional-models')
 
 const models = ({ orm }) => {
+  if (!orm) {
+    throw new Error(`Must include an orm.`)
+  }
   const OpenFruitModel = (modelType, keyToProperty) => {
     return orm.Model(
       modelType,

@@ -1,4 +1,5 @@
 const assert = require('chai').assert
+const sinon = require('sinon')
 const models = require('../../../src/taxonomy/models')
 const { createModels } = require('../../commonTest')
 
@@ -30,6 +31,16 @@ const TEST_CULTIVAR_1 = {
   lastModified: LAST_MODIFIED,
   lastUpdated: LAST_UPDATED,
   dateCreated: DATE_CREATED,
+}
+
+const TEST_CULTIVAR_2 = {
+  id: 'cultivar-id-2',
+  name: 'my-cultivar-2',
+  lastModified: LAST_MODIFIED,
+  lastUpdated: LAST_UPDATED,
+  dateCreated: DATE_CREATED,
+  parentA: TEST_CULTIVAR_1,
+  parentB: TEST_CULTIVAR_1,
 }
 
 describe('/src/taxonomy/models.js', () => {
@@ -161,8 +172,71 @@ describe('/src/taxonomy/models.js', () => {
           species,
           genus,
         })
-        const actual = await (await cultivar.getGenus()).getName()
+        const theGenus = await cultivar.getGenus()
+        const actual = await theGenus.getName()
         const expected = 'my-genus'
+        assert.deepEqual(actual, expected)
+      })
+    })
+    describe('#getParentA()', () => {
+      it('should call fetcher', async () => {
+        const { OpenFruitModel } = createModels()
+        const fetcher = sinon.stub().resolves(TEST_CULTIVAR_2)
+        const taxModels = models({ OpenFruitModel, fetcher })
+        const genus = taxModels.Genus.create(TEST_GENUS_1)
+        const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
+        const cultivar = taxModels.Cultivar.create({
+          ...TEST_CULTIVAR_2,
+          species,
+          genus,
+        })
+        await (await cultivar.getParentA()).functions.toObj()
+        sinon.assert.calledOnce(fetcher)
+      })
+      it('should return model for parentB', async () => {
+        const { OpenFruitModel } = createModels()
+        const fetcher = sinon.stub().resolves(TEST_CULTIVAR_2)
+        const taxModels = models({ OpenFruitModel, fetcher })
+        const genus = taxModels.Genus.create(TEST_GENUS_1)
+        const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
+        const cultivar = taxModels.Cultivar.create({
+          ...TEST_CULTIVAR_2,
+          species,
+          genus,
+        })
+        const actual = await (await cultivar.getParentA()).functions.toObj()
+        const expected = TEST_CULTIVAR_1.id
+        assert.deepEqual(actual, expected)
+      })
+    })
+    describe('#getParentB()', () => {
+      it('should call fetcher', async () => {
+        const { OpenFruitModel } = createModels()
+        const fetcher = sinon.stub().resolves(TEST_CULTIVAR_2)
+        const taxModels = models({ OpenFruitModel, fetcher })
+        const genus = taxModels.Genus.create(TEST_GENUS_1)
+        const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
+        const cultivar = taxModels.Cultivar.create({
+          ...TEST_CULTIVAR_2,
+          species,
+          genus,
+        })
+        await (await cultivar.getParentB()).functions.toObj()
+        sinon.assert.calledOnce(fetcher)
+      })
+      it('should return model for parentB', async () => {
+        const { OpenFruitModel } = createModels()
+        const fetcher = sinon.stub().resolves(TEST_CULTIVAR_2)
+        const taxModels = models({ OpenFruitModel, fetcher })
+        const genus = taxModels.Genus.create(TEST_GENUS_1)
+        const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
+        const cultivar = taxModels.Cultivar.create({
+          ...TEST_CULTIVAR_2,
+          species,
+          genus,
+        })
+        const actual = await (await cultivar.getParentB()).functions.toObj()
+        const expected = TEST_CULTIVAR_1.id
         assert.deepEqual(actual, expected)
       })
     })
