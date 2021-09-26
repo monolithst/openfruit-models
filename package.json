@@ -16,7 +16,8 @@
     "eslint-plugin-functional": "^3.2.1",
     "eslint-plugin-import": "^2.22.1",
     "mocha": "^8.2.1",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "sinon": "^11.1.2"
   },
   "nyc": {
     "all": true,
@@ -31,7 +32,9 @@
   "author": "Mike Cornwell",
   "license": "GPLv3",
   "dependencies": {
-    "functional-models": "^1.0.10",
+    "cucumber": "^7.0.0-rc.0",
+    "functional-models": "^1.0.12",
+    "functional-models-orm": "^1.0.0",
     "get-random-values": "^1.2.2",
     "lazy-property": "^1.0.0",
     "lodash": "^4.17.21"

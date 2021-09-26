@@ -1,4 +1,3 @@
-
 const MAX_NAME_LENGTH = 50
 const MIN_NAME_LENGTH = 50
 const MAX_EMAIL_LENGTH = 100

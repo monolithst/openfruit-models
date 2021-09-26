@@ -1,23 +1,26 @@
 const assert = require('chai').assert
-const { hexColorField, latinNameField, } = require('../../../src/taxonomy/fields')
+const {
+  HexColorProperty,
+  LatinNameProperty,
+} = require('../../../src/taxonomy/properties')
 
-describe('/src/taxonomy/fields.js', () => {
-  describe('#latinNameField()', () => {
+describe('/src/taxonomy/properties.js', () => {
+  describe('#LatinNameProperty()', () => {
     it('should not throw an exception for creating without a config', () => {
       assert.doesNotThrow(() => {
-        latinNameField()
+        LatinNameProperty()
       })
     })
   })
-  describe('#hexColorField()', () => {
+  describe('#HexColorProperty()', () => {
     it('should create an instance without exception without a config', () => {
       assert.doesNotThrow(() => {
-        hexColorField()
+        HexColorProperty()
       })
     })
     it('should create an instance without exception with a config', () => {
       assert.doesNotThrow(() => {
-        hexColorField({})
+        HexColorProperty({})
       })
     })
   })

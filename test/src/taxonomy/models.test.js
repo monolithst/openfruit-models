@@ -1,5 +1,7 @@
 const assert = require('chai').assert
+const sinon = require('sinon')
 const models = require('../../../src/taxonomy/models')
+const { createModels } = require('../../commonTest')
 
 const LAST_MODIFIED = new Date().toISOString()
 const LAST_UPDATED = new Date().toISOString()
@@ -31,17 +33,33 @@ const TEST_CULTIVAR_1 = {
   dateCreated: DATE_CREATED,
 }
 
+const TEST_CULTIVAR_2 = {
+  id: 'cultivar-id-2',
+  name: 'my-cultivar-2',
+  lastModified: LAST_MODIFIED,
+  lastUpdated: LAST_UPDATED,
+  dateCreated: DATE_CREATED,
+  parentA: TEST_CULTIVAR_1,
+  parentB: TEST_CULTIVAR_1,
+}
+
 describe('/src/taxonomy/models.js', () => {
-  describe('#genus()', () => {
+  describe('#Genus.create()', () => {
     describe('#getType()', () => {
       it('should produce an object with a type of "genus"', async () => {
-        const actual = await models().genus(TEST_GENUS_1).getType()
+        const { OpenFruitModel } = createModels()
+        const taxModels = models({ OpenFruitModel })
+        const actual = await taxModels.Genus.create(TEST_GENUS_1).getType()
         const expected = 'genus'
         assert.equal(actual, expected)
       })
     })
     it('should produce an expected genus when toObj is called', async () => {
-      const actual = await models().genus(TEST_GENUS_1).functions.toObj()
+      const { OpenFruitModel } = createModels()
+      const taxModels = models({ OpenFruitModel })
+      const actual = await taxModels.Genus.create(
+        TEST_GENUS_1
+      ).functions.toObj()
       const expected = {
         id: 'genus-id',
         type: 'genus',
@@ -49,24 +67,28 @@ describe('/src/taxonomy/models.js', () => {
         lastModified: LAST_MODIFIED,
         lastUpdated: LAST_UPDATED,
         dateCreated: DATE_CREATED,
-        latinName: 'genus-latin-name'
+        latinName: 'genus-latin-name',
       }
       assert.deepEqual(actual, expected)
     })
   })
-  describe('#species()', () => {
+  describe('#Species.create()', () => {
     describe('#getType()', () => {
       it('should produce an object with a type of "species"', async () => {
-        const genus = models().genus(TEST_GENUS_1)
-        const species = models().species({...TEST_SPECIES_1, genus })
+        const { OpenFruitModel } = createModels()
+        const taxModels = models({ OpenFruitModel })
+        const genus = taxModels.Genus.create(TEST_GENUS_1)
+        const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
         const actual = await species.getType()
         const expected = 'species'
         assert.equal(actual, expected)
       })
     })
     it('should produce an expected species when toObj is called', async () => {
-      const genus = models().genus(TEST_GENUS_1)
-      const species = models().species({...TEST_SPECIES_1, genus })
+      const { OpenFruitModel } = createModels()
+      const taxModels = models({ OpenFruitModel })
+      const genus = taxModels.Genus.create(TEST_GENUS_1)
+      const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
       const actual = await species.functions.toObj()
       const expected = {
         id: 'species-id',
@@ -86,21 +108,33 @@ describe('/src/taxonomy/models.js', () => {
       assert.deepEqual(actual, expected)
     })
   })
-  describe('#cultivar()', () => {
+  describe('#Cultivar.create()', () => {
     describe('#getType()', () => {
       it('should produce an object with a type of "cultivar"', async () => {
-        const genus = models().genus(TEST_GENUS_1)
-        const species = models().species({...TEST_SPECIES_1, genus })
-        const cultivar = models().cultivar({...TEST_CULTIVAR_1, species, genus })
+        const { OpenFruitModel } = createModels()
+        const taxModels = models({ OpenFruitModel })
+        const genus = taxModels.Genus.create(TEST_GENUS_1)
+        const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
+        const cultivar = taxModels.Cultivar.create({
+          ...TEST_CULTIVAR_1,
+          species,
+          genus,
+        })
         const actual = await cultivar.getType()
         const expected = 'cultivar'
         assert.equal(actual, expected)
       })
     })
     it('should produce an expected cultivar when toObj is called', async () => {
-      const genus = models().genus(TEST_GENUS_1)
-      const species = models().species({...TEST_SPECIES_1, genus })
-      const cultivar = models().cultivar({...TEST_CULTIVAR_1, species, genus })
+      const { OpenFruitModel } = createModels()
+      const taxModels = models({ OpenFruitModel })
+      const genus = taxModels.Genus.create(TEST_GENUS_1)
+      const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
+      const cultivar = taxModels.Cultivar.create({
+        ...TEST_CULTIVAR_1,
+        species,
+        genus,
+      })
       const actual = await cultivar.functions.toObj()
       const expected = {
         id: 'cultivar-id',
@@ -129,11 +163,80 @@ describe('/src/taxonomy/models.js', () => {
     })
     describe('#getGenus()', () => {
       it('should return "my-genus" for the name of the genus', async () => {
-        const genus = models().genus(TEST_GENUS_1)
-        const species = models().species({...TEST_SPECIES_1, genus })
-        const cultivar = models().cultivar({...TEST_CULTIVAR_1, species, genus })
-        const actual = await (await cultivar.getGenus()).getName()
+        const { OpenFruitModel } = createModels()
+        const taxModels = models({ OpenFruitModel })
+        const genus = taxModels.Genus.create(TEST_GENUS_1)
+        const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
+        const cultivar = taxModels.Cultivar.create({
+          ...TEST_CULTIVAR_1,
+          species,
+          genus,
+        })
+        const theGenus = await cultivar.getGenus()
+        const actual = await theGenus.getName()
         const expected = 'my-genus'
+        assert.deepEqual(actual, expected)
+      })
+    })
+    describe('#getParentA()', () => {
+      it('should call fetcher', async () => {
+        const { OpenFruitModel } = createModels()
+        const fetcher = sinon.stub().resolves(TEST_CULTIVAR_2)
+        const taxModels = models({ OpenFruitModel, fetcher })
+        const genus = taxModels.Genus.create(TEST_GENUS_1)
+        const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
+        const cultivar = taxModels.Cultivar.create({
+          ...TEST_CULTIVAR_2,
+          species,
+          genus,
+        })
+        await (await cultivar.getParentA()).functions.toObj()
+        sinon.assert.calledOnce(fetcher)
+      })
+      it('should return model for parentB', async () => {
+        const { OpenFruitModel } = createModels()
+        const fetcher = sinon.stub().resolves(TEST_CULTIVAR_2)
+        const taxModels = models({ OpenFruitModel, fetcher })
+        const genus = taxModels.Genus.create(TEST_GENUS_1)
+        const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
+        const cultivar = taxModels.Cultivar.create({
+          ...TEST_CULTIVAR_2,
+          species,
+          genus,
+        })
+        const actual = await (await cultivar.getParentA()).functions.toObj()
+        const expected = TEST_CULTIVAR_1.id
+        assert.deepEqual(actual, expected)
+      })
+    })
+    describe('#getParentB()', () => {
+      it('should call fetcher', async () => {
+        const { OpenFruitModel } = createModels()
+        const fetcher = sinon.stub().resolves(TEST_CULTIVAR_2)
+        const taxModels = models({ OpenFruitModel, fetcher })
+        const genus = taxModels.Genus.create(TEST_GENUS_1)
+        const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
+        const cultivar = taxModels.Cultivar.create({
+          ...TEST_CULTIVAR_2,
+          species,
+          genus,
+        })
+        await (await cultivar.getParentB()).functions.toObj()
+        sinon.assert.calledOnce(fetcher)
+      })
+      it('should return model for parentB', async () => {
+        const { OpenFruitModel } = createModels()
+        const fetcher = sinon.stub().resolves(TEST_CULTIVAR_2)
+        const taxModels = models({ OpenFruitModel, fetcher })
+        const genus = taxModels.Genus.create(TEST_GENUS_1)
+        const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
+        const cultivar = taxModels.Cultivar.create({
+          ...TEST_CULTIVAR_2,
+          species,
+          genus,
+        })
+        const actual = await (await cultivar.getParentB()).functions.toObj()
+        const expected = TEST_CULTIVAR_1.id
         assert.deepEqual(actual, expected)
       })
     })

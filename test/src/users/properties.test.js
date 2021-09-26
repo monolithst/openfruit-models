@@ -1,16 +1,16 @@
 const assert = require('chai').assert
-const { nameField } = require('../../../src/users/fields')
+const { NameProperty } = require('../../../src/users/properties')
 
-describe('/src/users/fields.js', () => {
-  describe('#nameField()', () => {
+describe('/src/users/properties.js', () => {
+  describe('#NameProperty()', () => {
     it('should create without exception if no configurations are passed', () => {
       assert.doesNotThrow(() => {
-        nameField()
+        NameProperty()
       })
     })
     it('should create without exception if configurations are passed', () => {
       assert.doesNotThrow(() => {
-        nameField({})
+        NameProperty({})
       })
     })
   })
