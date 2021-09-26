@@ -1,8 +1,8 @@
 const { ReferenceProperty, ObjectProperty } = require('functional-models')
 
-const models = ({ OpenFruitModel, User, userFetcher = {} }) => {
-  const UserApiUsage = OpenFruitModel({
-    user: ReferenceProperty(User, { fetcher: userFetcher, required: true }),
+const models = ({ OpenFruitModel, Users, userFetcher = {} }) => {
+  const UserApiUsages = OpenFruitModel('UserApiUsages', {
+    user: ReferenceProperty(Users, { fetcher: userFetcher, required: true }),
     usageByYearAndMonth: ObjectProperty({
       required: true,
       isObject: true,
@@ -11,7 +11,7 @@ const models = ({ OpenFruitModel, User, userFetcher = {} }) => {
   })
 
   return {
-    UserApiUsage,
+    UserApiUsages,
   }
 }
 

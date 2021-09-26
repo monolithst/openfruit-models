@@ -9,7 +9,7 @@ describe('/src/metrics/models.js', () => {
       assert.doesNotThrow(() => {
         const { OpenFruitModel } = createModels()
         const uModels = userModels({ OpenFruitModel })
-        models({ OpenFruitModel, User: uModels.User })
+        models({ OpenFruitModel, Users: uModels.Users })
       })
     })
     describe('#UserApiUsage.create()', () => {
@@ -17,7 +17,7 @@ describe('/src/metrics/models.js', () => {
         assert.doesNotThrow(() => {
           const { OpenFruitModel } = createModels()
           const uModels = userModels({ OpenFruitModel })
-          models({ OpenFruitModel, User: uModels.User }).UserApiUsage.create()
+          models({ OpenFruitModel, Users: uModels.Users }).UserApiUsages.create()
         })
       })
     })

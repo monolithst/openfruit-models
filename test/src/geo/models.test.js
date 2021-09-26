@@ -10,75 +10,75 @@ describe('/src/geo/models.js', () => {
         models({ OpenFruitModel })
       })
     })
-    describe('#Continent.create()', () => {
+    describe('#Continents.create()', () => {
       it('should create without exception if no config is passed', () => {
         assert.doesNotThrow(() => {
           const { OpenFruitModel } = createModels()
-          models({ OpenFruitModel }).Continent.create()
+          models({ OpenFruitModel }).Continents.create()
         })
       })
     })
-    describe('#LatLon.create()', () => {
+    describe('#GeoPoints.create()', () => {
       it('should create without exception if no config is passed', () => {
         assert.doesNotThrow(() => {
           const { OpenFruitModel } = createModels()
-          models({ OpenFruitModel }).LatLon.create()
+          models({ OpenFruitModel }).GeoPoints.create()
         })
       })
     })
-    describe('#City.create()', () => {
+    describe('#Cities.create()', () => {
       it('should create without exception if no config is passed', () => {
         assert.doesNotThrow(() => {
           const { OpenFruitModel } = createModels()
-          models({ OpenFruitModel }).City.create()
+          models({ OpenFruitModel }).Cities.create()
         })
       })
     })
-    describe('#Country.create()', () => {
+    describe('#Countries.create()', () => {
       it('should create without exception if no config is passed', () => {
         assert.doesNotThrow(() => {
           const { OpenFruitModel } = createModels()
-          models({ OpenFruitModel }).Country.create()
+          models({ OpenFruitModel }).Countries.create()
         })
       })
     })
-    describe('#County.create()', () => {
+    describe('#Counties.create()', () => {
       it('should create without exception if no config is passed', () => {
         assert.doesNotThrow(() => {
           const { OpenFruitModel } = createModels()
-          models({ OpenFruitModel }).County.create()
+          models({ OpenFruitModel }).Counties.create()
         })
       })
     })
-    describe('#Location.create()', () => {
+    describe('#Locations.create()', () => {
       it('should create without exception if no config is passed', () => {
         assert.doesNotThrow(() => {
           const { OpenFruitModel } = createModels()
-          models({ OpenFruitModel }).Location.create()
+          models({ OpenFruitModel }).Locations.create()
         })
       })
     })
-    describe('#State.create()', () => {
+    describe('#States.create()', () => {
       it('should create without exception if no config is passed', () => {
         assert.doesNotThrow(() => {
           const { OpenFruitModel } = createModels()
-          models({ OpenFruitModel }).State.create()
+          models({ OpenFruitModel }).States.create()
         })
       })
     })
-    describe('#Region.create()', () => {
+    describe('#Regions.create()', () => {
       it('should create without exception if no config is passed', () => {
         assert.doesNotThrow(() => {
           const { OpenFruitModel } = createModels()
-          models({ OpenFruitModel }).Region.create()
+          models({ OpenFruitModel }).Regions.create()
         })
       })
     })
-    describe('#Zipcode.create()', () => {
+    describe('#Zipcodes.create()', () => {
       it('should create without exception if no config is passed', () => {
         assert.doesNotThrow(() => {
           const { OpenFruitModel } = createModels()
-          models({ OpenFruitModel }).Zipcode.create()
+          models({ OpenFruitModel }).Zipcodes.create()
         })
       })
     })

@@ -13,14 +13,14 @@ const models = ({
   OpenFruitModel,
   fetcher = undefined,
 }) => {
-  const Genus = OpenFruitModel('genus', {
+  const Genera = OpenFruitModel('Genera', {
     name: TextProperty({ required: true }),
     latinName: LatinNameProperty({ required: true }),
   })
 
-  const Species = OpenFruitModel('species', {
+  const Species = OpenFruitModel('Species', {
     name: TextProperty({ required: true }),
-    genus: ReferenceProperty(Genus, { fetcher, required: true }),
+    genus: ReferenceProperty(Genera, { fetcher, required: true }),
     latinName: LatinNameProperty({ required: true }),
     harvestMonthEarly: HarvestMonthProperty(),
     harvestMonthEarlyModifier: HarvestMonthModifierProperty(),
@@ -29,10 +29,10 @@ const models = ({
     fruitUse: FruitUseProperty(),
   })
 
-  let Cultivar = null
-  Cultivar = OpenFruitModel('cultivar', {
+  let Cultivars = null
+  Cultivars = OpenFruitModel('Cultivars', {
     name: TextProperty({ required: true }),
-    genus: ReferenceProperty(Genus, { fetcher, required: true }),
+    genus: ReferenceProperty(Genera, { fetcher, required: true }),
     species: ReferenceProperty(Species, {
       fetcher,
       required: true,
@@ -43,8 +43,8 @@ const models = ({
     harvestMonthLateModifier: HarvestMonthModifierProperty(),
     chromosomeCount: ChromosomeCountProperty(),
     fruitUse: FruitUseProperty(),
-    parentA: ReferenceProperty(()=>Cultivar, { fetcher }),
-    parentB: ReferenceProperty(()=>Cultivar, { fetcher }),
+    parentA: ReferenceProperty(()=>Cultivars, { fetcher }),
+    parentB: ReferenceProperty(()=>Cultivars, { fetcher }),
     briefDescription: TextProperty({
       maxLength: MAX_BRIEF_DESCRIPTION,
     }),
@@ -55,9 +55,9 @@ const models = ({
   })
 
   return {
-    Genus,
+    Genera,
     Species,
-    Cultivar,
+    Cultivars,
   }
 }
 

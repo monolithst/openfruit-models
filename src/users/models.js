@@ -6,18 +6,18 @@ const {
 const { NameProperty } = require('./properties')
 
 const models = ({ OpenFruitModel, userFetcher = undefined }) => {
-  const User = OpenFruitModel('user', {
+  const Users = OpenFruitModel('Users', {
     firstName: NameProperty({ required: true }),
     lastName: NameProperty({ required: true }),
     email: EmailProperty({ required: true }),
   })
-  const UserApiKey = OpenFruitModel('userApiKey', {
-    user: ReferenceProperty(User, { fetcher: userFetcher, required: true }),
+  const UserApiKeys = OpenFruitModel('UserApiKeys', {
+    user: ReferenceProperty(Users, { fetcher: userFetcher, required: true }),
     apiKey: TextProperty({ required: true }),
   })
   return {
-    User,
-    UserApiKey,
+    Users,
+    UserApiKeys,
   }
 }
 
