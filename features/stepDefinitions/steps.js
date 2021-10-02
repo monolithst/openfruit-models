@@ -19,14 +19,14 @@ const TaxonomyModelDataset1 = async (datastoreProvider) => {
 
   const taxModels = taxonomyModels({ OpenFruitModel, fetcher: myOrm.fetcher })
 
-  const g1 = taxModels.Genus.create({ name: 'Apple', latinName: 'Malus' })
-  const g2 = taxModels.Genus.create({ name: 'Cherry', latinName: 'Prunus' })
+  const g1 = taxModels.Genera.create({ name: 'Apple', latinName: 'Malus' })
+  const g2 = taxModels.Genera.create({ name: 'Cherry', latinName: 'Prunus' })
 
   const s1 = taxModels.Species.create({ name: 'Apple', latinName: 'Malus domestica', genus: await g1.getId() })
   const s2 = taxModels.Species.create({ name: 'Sour Cherry', latinName: 'Prunus cerasus', genus: await g2.getId() })
 
-  const c1 = taxModels.Cultivar.create({ name: 'Red Rebel', species: await s1.getId(), genus: await g1.getId() })
-  const c2 = taxModels.Cultivar.create({ name: 'Montmorency', species: await s2.getId(), genus: await g2.getId() })
+  const c1 = taxModels.Cultivars.create({ name: 'Red Rebel', species: await s1.getId(), genus: await g1.getId() })
+  const c2 = taxModels.Cultivars.create({ name: 'Montmorency', species: await s2.getId(), genus: await g2.getId() })
 
   return {
     genus: [g1, g2],
