@@ -18,5 +18,6 @@ module.exports = {
   geo,
   taxonomy,
   metrics,
+  models: require('./models'),
   MODEL_NAMES: createModelNamesList(),
 }
