@@ -7,18 +7,18 @@ const {
   HexColorProperty,
   LatinNameProperty,
 } = require('./properties')
-const { MAX_HISTORY, MAX_BRIEF_DESCRIPTION } = require('./constants')
+const { MAX_HISTORY, MAX_BRIEF_DESCRIPTION, MODEL_NAMES } = require('./constants')
 
 const models = ({
   OpenFruitModel,
   fetcher = undefined,
 }) => {
-  const Genera = OpenFruitModel('Genera', {
+  const Genera = OpenFruitModel(MODEL_NAMES.Genera, {
     name: TextProperty({ required: true }),
     latinName: LatinNameProperty({ required: true }),
   })
 
-  const Species = OpenFruitModel('Species', {
+  const Species = OpenFruitModel(MODEL_NAMES.Species, {
     name: TextProperty({ required: true }),
     genus: ReferenceProperty(Genera, { fetcher, required: true }),
     latinName: LatinNameProperty({ required: true }),
@@ -30,7 +30,7 @@ const models = ({
   })
 
   let Cultivars = null
-  Cultivars = OpenFruitModel('Cultivars', {
+  Cultivars = OpenFruitModel(MODEL_NAMES.Cultivars, {
     name: TextProperty({ required: true }),
     genus: ReferenceProperty(Genera, { fetcher, required: true }),
     species: ReferenceProperty(Species, {

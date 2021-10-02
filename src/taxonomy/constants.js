@@ -1,3 +1,5 @@
+const { getObjToArray } = require('../utils')
+
 const CHROMOSOME_COUNT = {
   2: 'Diploid x2',
   3: 'Triploid x3',
@@ -45,6 +47,12 @@ const FRUIT_USES = {
 const MAX_BRIEF_DESCRIPTION = 300
 const MAX_HISTORY = 5000
 
+const MODEL_NAMES = getObjToArray([
+  'Genera',
+  'Species',
+  'Cultivars',
+])
+
 module.exports = {
   RIPENING_MONTHS,
   CHROMOSOME_COUNT,
@@ -52,4 +60,5 @@ module.exports = {
   FRUIT_USES,
   MAX_BRIEF_DESCRIPTION,
   MAX_HISTORY,
+  MODEL_NAMES,
 }

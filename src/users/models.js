@@ -4,14 +4,15 @@ const {
   ReferenceProperty,
 } = require('functional-models')
 const { NameProperty } = require('./properties')
+const { MODEL_NAMES } = require('./constants')
 
 const models = ({ OpenFruitModel, userFetcher = undefined }) => {
-  const Users = OpenFruitModel('Users', {
+  const Users = OpenFruitModel(MODEL_NAMES.Users, {
     firstName: NameProperty({ required: true }),
     lastName: NameProperty({ required: true }),
     email: EmailProperty({ required: true }),
   })
-  const UserApiKeys = OpenFruitModel('UserApiKeys', {
+  const UserApiKeys = OpenFruitModel(MODEL_NAMES.UserApiKeys, {
     user: ReferenceProperty(Users, { fetcher: userFetcher, required: true }),
     apiKey: TextProperty({ required: true }),
   })
