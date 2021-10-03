@@ -3,7 +3,6 @@ const { getObjToArray } = require('../utils')
 const MAX_GEO_NAME = 50
 const MAX_STREET_ADDRESS = 100
 
-
 const MODEL_NAMES = getObjToArray([
   'GeoPoints',
   'Continents',

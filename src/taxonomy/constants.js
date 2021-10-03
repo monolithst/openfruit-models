@@ -47,11 +47,7 @@ const FRUIT_USES = {
 const MAX_BRIEF_DESCRIPTION = 300
 const MAX_HISTORY = 5000
 
-const MODEL_NAMES = getObjToArray([
-  'Genera',
-  'Species',
-  'Cultivars',
-])
+const MODEL_NAMES = getObjToArray(['Genera', 'Species', 'Cultivars'])
 
 module.exports = {
   RIPENING_MONTHS,

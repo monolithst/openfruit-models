@@ -17,7 +17,10 @@ describe('/src/metrics/models.js', () => {
         assert.doesNotThrow(() => {
           const { OpenFruitModel } = createModels()
           const uModels = userModels({ OpenFruitModel })
-          models({ OpenFruitModel, Users: uModels.Users }).UserApiUsages.create()
+          models({
+            OpenFruitModel,
+            Users: uModels.Users,
+          }).UserApiUsages.create()
         })
       })
     })

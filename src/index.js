@@ -9,9 +9,8 @@ const createModelNamesList = () => {
     ...geo.constants.MODEL_NAMES.toArray(),
     ...taxonomy.constants.MODEL_NAMES.toArray(),
     ...metrics.constants.MODEL_NAMES.toArray(),
-  ].sort((x,y)=>x.localeCompare(y))
+  ].sort((x, y) => x.localeCompare(y))
 }
-
 
 module.exports = {
   users,

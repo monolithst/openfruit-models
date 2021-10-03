@@ -4,7 +4,7 @@ const getObjToArray = array => {
   const obj = keyBy(array)
   return {
     ...obj,
-    toArray: () => array
+    toArray: () => array,
   }
 }
 

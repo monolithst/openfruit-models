@@ -9,7 +9,7 @@ const models = ({ orm }) => {
   if (!orm) {
     throw new Error(`Must include an orm.`)
   }
-  const OpenFruitModel = (modelType, keyToProperty, ...args) =>{
+  const OpenFruitModel = (modelType, keyToProperty, ...args) => {
     return orm.Model(
       modelType,
       merge(keyToProperty, {
@@ -18,7 +18,8 @@ const models = ({ orm }) => {
         lastModified: DateProperty({ autoNow: true, required: true }),
         lastUpdated: DateProperty({ autoNow: true, required: true }),
         dateCreated: DateProperty({ autoNow: true, required: true }),
-      }), ...args
+      }),
+      ...args
     )
   }
 

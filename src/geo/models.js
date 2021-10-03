@@ -6,10 +6,7 @@ const {
 } = require('functional-models')
 const { MAX_GEO_NAME, MAX_STREET_ADDRESS, MODEL_NAMES } = require('./constants')
 
-const models = ({
-  OpenFruitModel,
-  fetcher = undefined,
-}) => {
+const models = ({ OpenFruitModel, fetcher = undefined }) => {
   const GeoPoints = OpenFruitModel(MODEL_NAMES.GeoPoints, {
     lat: NumberProperty({ required: true }),
     lon: NumberProperty({ required: true }),
