@@ -177,6 +177,6 @@ When(
 )
 
 Then('a singleInstance is validated resulting in an error', async function () {
-  const errors = await this.singleInstance.functions.validate.model()
+  const errors = await this.singleInstance.functions.validate()
   assert.isOk(Object.entries(errors).length)
 })

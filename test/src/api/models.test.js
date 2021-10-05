@@ -1,9 +1,9 @@
 const assert = require('chai').assert
-const { models: authModels } = require('functional-models-auth')
-const models = require('../../../src/metrics/models')
+const authModels = require('functional-models-auth').models
+const models = require('../../../src/api/models')
 const { createModels } = require('../../commonTest')
 
-describe('/src/metrics/models.js', () => {
+describe('/src/api/models.js', () => {
   describe('#models()', () => {
     it('should create without exception if no configurations are passed', () => {
       assert.doesNotThrow(() => {
@@ -12,15 +12,12 @@ describe('/src/metrics/models.js', () => {
         models({ OpenFruitModel, Users: aModels.Users })
       })
     })
-    describe('#UserApiUsage.create()', () => {
-      it('should create without exception if no config is passed', () => {
+    describe('#UserApiKeys.create()', () => {
+      it('should create without exception if no configurations are passed', () => {
         assert.doesNotThrow(() => {
           const { OpenFruitModel } = createModels()
           const aModels = authModels({Model: OpenFruitModel})
-          models({
-            OpenFruitModel,
-            Users: aModels.Users,
-          }).UserApiUsages.create()
+          models({ OpenFruitModel, Users: aModels.Users }).UserApiKeys.create()
         })
       })
     })

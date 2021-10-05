@@ -1,4 +1,5 @@
 const { TextProperty, ReferenceProperty } = require('functional-models')
+const { ormPropertyConfig } = require('functional-models-orm').properties
 const { validation } = require('functional-models-orm')
 const {
   ChromosomeCountProperty,
@@ -19,15 +20,9 @@ const models = ({ OpenFruitModel, fetcher = undefined }) => {
   const Genera = OpenFruitModel(
     MODEL_NAMES.Genera,
     {
-      name: TextProperty({ required: true }),
-      latinName: LatinNameProperty({ required: true }),
+      name: TextProperty(ormPropertyConfig({ required: true, unique: 'name' })),
+      latinName: LatinNameProperty(ormPropertyConfig({ required: true, unique: 'latinName' })),
     },
-    {
-      modelValidators: [
-        validation.unique('latinName'),
-        validation.unique('name'),
-      ],
-    }
   )
 
   const Species = OpenFruitModel(
@@ -35,7 +30,7 @@ const models = ({ OpenFruitModel, fetcher = undefined }) => {
     {
       name: TextProperty({ required: true }),
       genus: ReferenceProperty(Genera, { fetcher, required: true }),
-      latinName: LatinNameProperty({ required: true }),
+      latinName: LatinNameProperty(ormPropertyConfig({ required: true, unique: 'latinName' })),
       harvestMonthEarly: HarvestMonthProperty(),
       harvestMonthEarlyModifier: HarvestMonthModifierProperty(),
       harvestMonthLate: HarvestMonthProperty(),
@@ -44,7 +39,6 @@ const models = ({ OpenFruitModel, fetcher = undefined }) => {
     },
     {
       modelValidators: [
-        validation.unique('latinName'),
         validation.uniqueTogether(['genus', 'name']),
       ],
     }

@@ -1,9 +1,9 @@
 const assert = require('chai').assert
 
-describe('/src/users/index.js', () => {
+describe('/src/api/index.js', () => {
   it('should load without exception', () => {
     assert.doesNotThrow(() => {
-      require('../../../src/users/index')
+      require('../../../src/api/index')
     })
   })
 })
