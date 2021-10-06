@@ -33,9 +33,9 @@
   "license": "GPLv3",
   "dependencies": {
     "cucumber": "^7.0.0-rc.0",
-    "functional-models": "^1.0.24",
-    "functional-models-auth": "^1.0.3",
-    "functional-models-orm": "^1.0.12",
+    "functional-models": "^1.0.25",
+    "functional-models-auth": "^1.0.4",
+    "functional-models-orm": "^1.0.13",
     "get-random-values": "^1.2.2",
     "lazy-property": "^1.0.0",
     "lodash": "^4.17.21"

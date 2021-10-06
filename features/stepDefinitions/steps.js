@@ -7,9 +7,9 @@ const taxonomyModels = require('../../src/taxonomy/models')
 
 const TaxonomyModelDataset1 = async datastoreProvider => {
   const myOrm = orm({ datastoreProvider })
-  const { OpenFruitModel } = models({ orm: myOrm })
+  const { Model } = models({ orm: myOrm })
 
-  const taxModels = taxonomyModels({ OpenFruitModel, fetcher: myOrm.fetcher })
+  const taxModels = taxonomyModels({ Model, fetcher: myOrm.fetcher })
 
   const g1 = taxModels.Genera.create({
     id: 'malus',
@@ -57,9 +57,9 @@ const TaxonomyModelDataset1 = async datastoreProvider => {
 
 const TaxonomyModelDataset2 = async datastoreProvider => {
   const myOrm = orm({ datastoreProvider })
-  const { OpenFruitModel } = models({ orm: myOrm })
+  const { Model } = models({ orm: myOrm })
 
-  const taxModels = taxonomyModels({ OpenFruitModel, fetcher: myOrm.fetcher })
+  const taxModels = taxonomyModels({ Model, fetcher: myOrm.fetcher })
 
   const g1 = taxModels.Genera.create({
     id: 'apple2',

@@ -12,7 +12,6 @@ const TEST_GENUS_1 = {
   name: 'my-genus',
   latinName: 'genus-latin-name',
   lastModified: LAST_MODIFIED,
-  lastUpdated: LAST_UPDATED,
   dateCreated: DATE_CREATED,
 }
 
@@ -21,7 +20,6 @@ const TEST_SPECIES_1 = {
   name: 'my-species',
   latinName: 'species-latin-name',
   lastModified: LAST_MODIFIED,
-  lastUpdated: LAST_UPDATED,
   dateCreated: DATE_CREATED,
 }
 
@@ -29,7 +27,6 @@ const TEST_CULTIVAR_1 = {
   id: 'cultivar-id',
   name: 'my-cultivar',
   lastModified: LAST_MODIFIED,
-  lastUpdated: LAST_UPDATED,
   dateCreated: DATE_CREATED,
 }
 
@@ -37,7 +34,6 @@ const TEST_CULTIVAR_2 = {
   id: 'cultivar-id-2',
   name: 'my-cultivar-2',
   lastModified: LAST_MODIFIED,
-  lastUpdated: LAST_UPDATED,
   dateCreated: DATE_CREATED,
   parentA: TEST_CULTIVAR_1,
   parentB: TEST_CULTIVAR_1,
@@ -47,16 +43,16 @@ describe('/src/taxonomy/models.js', () => {
   describe('#Genera.create()', () => {
     describe('#getType()', () => {
       it('should produce an object with a type of "Genera"', async () => {
-        const { OpenFruitModel } = createModels()
-        const taxModels = models({ OpenFruitModel })
+        const { Model } = createModels()
+        const taxModels = models({ Model })
         const actual = await taxModels.Genera.create(TEST_GENUS_1).getType()
         const expected = 'Genera'
         assert.equal(actual, expected)
       })
     })
     it('should produce an expected genus when toObj is called', async () => {
-      const { OpenFruitModel } = createModels()
-      const taxModels = models({ OpenFruitModel })
+      const { Model } = createModels()
+      const taxModels = models({ Model })
       const actual = await taxModels.Genera.create(
         TEST_GENUS_1
       ).functions.toObj()
@@ -65,7 +61,6 @@ describe('/src/taxonomy/models.js', () => {
         type: 'Genera',
         name: 'my-genus',
         lastModified: LAST_MODIFIED,
-        lastUpdated: LAST_UPDATED,
         dateCreated: DATE_CREATED,
         latinName: 'genus-latin-name',
       }
@@ -75,8 +70,8 @@ describe('/src/taxonomy/models.js', () => {
   describe('#Species.create()', () => {
     describe('#getType()', () => {
       it('should produce an object with a type of "Species"', async () => {
-        const { OpenFruitModel } = createModels()
-        const taxModels = models({ OpenFruitModel })
+        const { Model } = createModels()
+        const taxModels = models({ Model })
         const genus = taxModels.Genera.create(TEST_GENUS_1)
         const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
         const actual = await species.getType()
@@ -85,8 +80,8 @@ describe('/src/taxonomy/models.js', () => {
       })
     })
     it('should produce an expected species when toObj is called', async () => {
-      const { OpenFruitModel } = createModels()
-      const taxModels = models({ OpenFruitModel })
+      const { Model } = createModels()
+      const taxModels = models({ Model })
       const genus = taxModels.Genera.create(TEST_GENUS_1)
       const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
       const actual = await species.functions.toObj()
@@ -96,7 +91,6 @@ describe('/src/taxonomy/models.js', () => {
         name: 'my-species',
         genus: 'genus-id',
         lastModified: LAST_MODIFIED,
-        lastUpdated: LAST_UPDATED,
         dateCreated: DATE_CREATED,
         latinName: 'species-latin-name',
         fruitUse: [],
@@ -111,8 +105,8 @@ describe('/src/taxonomy/models.js', () => {
   describe('#Cultivars.create()', () => {
     describe('#getType()', () => {
       it('should produce an object with a type of "Cultivars"', async () => {
-        const { OpenFruitModel } = createModels()
-        const taxModels = models({ OpenFruitModel })
+        const { Model } = createModels()
+        const taxModels = models({ Model })
         const genus = taxModels.Genera.create(TEST_GENUS_1)
         const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
         const cultivar = taxModels.Cultivars.create({
@@ -126,8 +120,8 @@ describe('/src/taxonomy/models.js', () => {
       })
     })
     it('should produce an expected cultivar when toObj is called', async () => {
-      const { OpenFruitModel } = createModels()
-      const taxModels = models({ OpenFruitModel })
+      const { Model } = createModels()
+      const taxModels = models({ Model })
       const genus = taxModels.Genera.create(TEST_GENUS_1)
       const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
       const cultivar = taxModels.Cultivars.create({
@@ -143,7 +137,6 @@ describe('/src/taxonomy/models.js', () => {
         species: 'species-id',
         genus: 'genus-id',
         lastModified: LAST_MODIFIED,
-        lastUpdated: LAST_UPDATED,
         dateCreated: DATE_CREATED,
         chromosomeCount: 2,
         fruitUse: [],
@@ -163,8 +156,8 @@ describe('/src/taxonomy/models.js', () => {
     })
     describe('#getGenus()', () => {
       it('should return "my-genus" for the name of the genus', async () => {
-        const { OpenFruitModel } = createModels()
-        const taxModels = models({ OpenFruitModel })
+        const { Model } = createModels()
+        const taxModels = models({ Model })
         const genus = taxModels.Genera.create(TEST_GENUS_1)
         const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
         const cultivar = taxModels.Cultivars.create({
@@ -180,9 +173,9 @@ describe('/src/taxonomy/models.js', () => {
     })
     describe('#getParentA()', () => {
       it('should call fetcher', async () => {
-        const { OpenFruitModel } = createModels()
+        const { Model } = createModels()
         const fetcher = sinon.stub().resolves(TEST_CULTIVAR_2)
-        const taxModels = models({ OpenFruitModel, fetcher })
+        const taxModels = models({ Model, fetcher })
         const genus = taxModels.Genera.create(TEST_GENUS_1)
         const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
         const cultivar = taxModels.Cultivars.create({
@@ -194,9 +187,9 @@ describe('/src/taxonomy/models.js', () => {
         sinon.assert.calledOnce(fetcher)
       })
       it('should return model for parentB', async () => {
-        const { OpenFruitModel } = createModels()
+        const { Model } = createModels()
         const fetcher = sinon.stub().resolves(TEST_CULTIVAR_2)
-        const taxModels = models({ OpenFruitModel, fetcher })
+        const taxModels = models({ Model, fetcher })
         const genus = taxModels.Genera.create(TEST_GENUS_1)
         const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
         const cultivar = taxModels.Cultivars.create({
@@ -211,9 +204,9 @@ describe('/src/taxonomy/models.js', () => {
     })
     describe('#getParentB()', () => {
       it('should call fetcher', async () => {
-        const { OpenFruitModel } = createModels()
+        const { Model } = createModels()
         const fetcher = sinon.stub().resolves(TEST_CULTIVAR_2)
-        const taxModels = models({ OpenFruitModel, fetcher })
+        const taxModels = models({ Model, fetcher })
         const genus = taxModels.Genera.create(TEST_GENUS_1)
         const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
         const cultivar = taxModels.Cultivars.create({
@@ -225,9 +218,9 @@ describe('/src/taxonomy/models.js', () => {
         sinon.assert.calledOnce(fetcher)
       })
       it('should return model for parentB', async () => {
-        const { OpenFruitModel } = createModels()
+        const { Model } = createModels()
         const fetcher = sinon.stub().resolves(TEST_CULTIVAR_2)
-        const taxModels = models({ OpenFruitModel, fetcher })
+        const taxModels = models({ Model, fetcher })
         const genus = taxModels.Genera.create(TEST_GENUS_1)
         const species = taxModels.Species.create({ ...TEST_SPECIES_1, genus })
         const cultivar = taxModels.Cultivars.create({

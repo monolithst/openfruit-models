@@ -3,18 +3,20 @@ const {
   ConstantValueProperty,
   DateProperty,
 } = require('functional-models')
+const {
+  LastModifiedDateProperty
+} = require('functional-models-orm').properties
 
 const models = ({ orm }) => {
   if (!orm) {
     throw new Error(`Must include an orm.`)
   }
-  const OpenFruitModel = (modelType, keyToProperty, ...args) => {
+  const Model = (modelType, keyToProperty, ...args) => {
     return orm.Model(
       modelType,
       merge(keyToProperty, {
         type: ConstantValueProperty(modelType),
-        lastModified: DateProperty({ autoNow: true, required: true }),
-        lastUpdated: DateProperty({ autoNow: true, required: true }),
+        lastModified: LastModifiedDateProperty({ autoNow: true, required: true }),
         dateCreated: DateProperty({ autoNow: true, required: true }),
       }),
       ...args
@@ -22,7 +24,7 @@ const models = ({ orm }) => {
   }
 
   return {
-    OpenFruitModel,
+    Model,
   }
 }
 

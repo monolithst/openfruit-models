@@ -16,16 +16,16 @@ const {
   MODEL_NAMES,
 } = require('./constants')
 
-const models = ({ OpenFruitModel, fetcher = undefined }) => {
-  const Genera = OpenFruitModel(
+const models = ({ Model, fetcher = undefined }) => {
+  const Genera = Model(
     MODEL_NAMES.Genera,
     {
-      name: TextProperty(ormPropertyConfig({ required: true, unique: 'name' })),
+      name: TextProperty(ormPropertyConfig({ required: false, unique: 'name' })),
       latinName: LatinNameProperty(ormPropertyConfig({ required: true, unique: 'latinName' })),
     },
   )
 
-  const Species = OpenFruitModel(
+  const Species = Model(
     MODEL_NAMES.Species,
     {
       name: TextProperty({ required: true }),
@@ -46,7 +46,7 @@ const models = ({ OpenFruitModel, fetcher = undefined }) => {
 
   // eslint-disable-next-line functional/no-let
   let Cultivars = null
-  Cultivars = OpenFruitModel(
+  Cultivars = Model(
     MODEL_NAMES.Cultivars,
     {
       name: TextProperty({ required: true }),

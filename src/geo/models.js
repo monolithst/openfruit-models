@@ -6,17 +6,17 @@ const {
 } = require('functional-models')
 const { MAX_GEO_NAME, MAX_STREET_ADDRESS, MODEL_NAMES } = require('./constants')
 
-const models = ({ OpenFruitModel, fetcher = undefined }) => {
-  const GeoPoints = OpenFruitModel(MODEL_NAMES.GeoPoints, {
+const models = ({ Model, fetcher = undefined }) => {
+  const GeoPoints = Model(MODEL_NAMES.GeoPoints, {
     lat: NumberProperty({ required: true }),
     lon: NumberProperty({ required: true }),
   })
 
-  const Continents = OpenFruitModel(MODEL_NAMES.Continents, {
+  const Continents = Model(MODEL_NAMES.Continents, {
     name: TextProperty({ required: true, maxLength: MAX_GEO_NAME }),
   })
 
-  const Countries = OpenFruitModel(MODEL_NAMES.Countries, {
+  const Countries = Model(MODEL_NAMES.Countries, {
     name: TextProperty({ required: true, maxLength: MAX_GEO_NAME }),
     continent: ReferenceProperty(Continents, {
       fetcher,
@@ -26,7 +26,7 @@ const models = ({ OpenFruitModel, fetcher = undefined }) => {
     centerLatLon: ReferenceProperty(GeoPoints, { fetcher }),
   })
 
-  const Regions = OpenFruitModel(MODEL_NAMES.Regions, {
+  const Regions = Model(MODEL_NAMES.Regions, {
     name: TextProperty({ required: true, maxLength: MAX_GEO_NAME }),
     country: ReferenceProperty(Countries, {
       fetcher,
@@ -35,7 +35,7 @@ const models = ({ OpenFruitModel, fetcher = undefined }) => {
     centerLatLon: ReferenceProperty(GeoPoints, { fetcher }),
   })
 
-  const States = OpenFruitModel(MODEL_NAMES.States, {
+  const States = Model(MODEL_NAMES.States, {
     name: TextProperty({ required: true, maxLength: MAX_GEO_NAME }),
     country: ReferenceProperty(Countries, {
       fetcher,
@@ -45,13 +45,13 @@ const models = ({ OpenFruitModel, fetcher = undefined }) => {
     centerLatLon: ReferenceProperty(GeoPoints, { fetcher }),
   })
 
-  const Counties = OpenFruitModel(MODEL_NAMES.Counties, {
+  const Counties = Model(MODEL_NAMES.Counties, {
     name: TextProperty({ required: true, maxLength: MAX_GEO_NAME }),
     state: ReferenceProperty(States, { fetcher, required: true }),
     centerLatLon: ReferenceProperty(GeoPoints, { fetcher }),
   })
 
-  const Cities = OpenFruitModel(MODEL_NAMES.Cities, {
+  const Cities = Model(MODEL_NAMES.Cities, {
     name: TextProperty({ required: true, maxLength: MAX_GEO_NAME }),
     state: ReferenceProperty(States, { fetcher, required: true }),
     county: ReferenceProperty(Counties, {
@@ -61,7 +61,7 @@ const models = ({ OpenFruitModel, fetcher = undefined }) => {
     centerLatLon: ReferenceProperty(GeoPoints, { fetcher }),
   })
 
-  const Zipcodes = OpenFruitModel(MODEL_NAMES.Zipcodes, {
+  const Zipcodes = Model(MODEL_NAMES.Zipcodes, {
     name: TextProperty({ required: true, maxLength: MAX_GEO_NAME }),
     city: ReferenceProperty(Cities, { fetcher, required: false }),
     zipcode: IntegerProperty({ minValue: 1, maxValue: 99999 }),
@@ -69,7 +69,7 @@ const models = ({ OpenFruitModel, fetcher = undefined }) => {
     centerLatLon: ReferenceProperty(GeoPoints, { fetcher }),
   })
 
-  const Locations = OpenFruitModel(MODEL_NAMES.Locations, {
+  const Locations = Model(MODEL_NAMES.Locations, {
     country: ReferenceProperty(Countries, {
       fetcher,
       required: true,

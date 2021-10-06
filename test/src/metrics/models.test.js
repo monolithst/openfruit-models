@@ -7,18 +7,18 @@ describe('/src/metrics/models.js', () => {
   describe('#models()', () => {
     it('should create without exception if no configurations are passed', () => {
       assert.doesNotThrow(() => {
-        const { OpenFruitModel } = createModels()
-        const aModels = authModels({Model: OpenFruitModel})
-        models({ OpenFruitModel, Users: aModels.Users })
+        const { Model } = createModels()
+        const aModels = authModels({Model})
+        models({ Model, Users: aModels.Users })
       })
     })
     describe('#UserApiUsage.create()', () => {
       it('should create without exception if no config is passed', () => {
         assert.doesNotThrow(() => {
-          const { OpenFruitModel } = createModels()
-          const aModels = authModels({Model: OpenFruitModel})
+          const { Model } = createModels()
+          const aModels = authModels({Model})
           models({
-            OpenFruitModel,
+            Model,
             Users: aModels.Users,
           }).UserApiUsages.create()
         })
