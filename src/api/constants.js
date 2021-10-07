@@ -11,5 +11,5 @@ const MEMBERSHIPS = getObjToArray([
 
 module.exports = {
   MODEL_NAMES,
-  MEMBERSHIPS
+  MEMBERSHIPS,
 }
